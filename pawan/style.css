@@ -1,0 +1,1709 @@
+a:root {
+    --primary-color: #e0f7fa; /* Light cyan */
+    --secondary-color: #b2dfdb; /* Light teal */
+    --accent-color: #00b140; /* CGI green */
+    --text-color: #37474f; /* Dark gray */
+    --light-bg: #ffffff; /* White */
+    --shadow: rgba(0, 0, 0, 0.1);
+    --font-family: 'Roboto', sans-serif;
+    --spacing: 1rem;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* Contact slider and FAB styles */
+.visually-hidden{ display: none; }
+
+.contact-fab{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    cursor: pointer;
+    font-weight: 700;
+    z-index: 1000;
+}
+
+.contact-slider{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 360px;
+    max-width: calc(100% - 40px);
+    height: 0;
+    background: var(--light-bg);
+    color: var(--text-color);
+    border-radius: 12px 12px 0 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: transform 0.35s ease, height 0.35s ease;
+    z-index: 1001;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-slider.open{
+    transform: translateY(0);
+    height: 420px;
+}
+
+.contact-slider .close-slider{
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.contact-slider h3{ margin: 28px 0 0 0; }
+.contact-slider .contact-form{ display: flex; flex-direction: column; gap: 8px; padding-bottom: 16px; }
+.contact-slider input, .contact-slider textarea{
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-family: var(--font-family);
+}
+.contact-slider textarea{ min-height: 120px; resize: vertical; }
+.contact-slider .submit-button{
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px){
+    .contact-slider{ width: calc(100% - 24px); right: 12px; left: 12px; border-radius: 12px; }
+}
+
+/* Apple-style pure transparent glass navbar */
+header#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 2000;
+    background: rgba(255,255,255,0.05); /* nearly pure transparent */
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Navbar spacing and header size improvements */
+header#header nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.3rem 2.5rem;
+    min-height: 48px;
+    height: 48px;
+}
+.nav-links {
+    display: flex;
+    gap: 3.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+}
+@media (max-width: 900px) {
+    header#header nav {
+        padding: 0.2rem 1rem;
+        min-height: 44px;
+        height: 44px;
+    }
+    .nav-links {
+        gap: 2rem;
+    }
+}
+@media (max-width: 700px) {
+    header#header nav {
+        padding: 0.1rem 0.5rem;
+        min-height: 40px;
+        height: 40px;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    position: relative;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: background 0.2s, color 0.2s, transform 0.25s cubic-bezier(.22,1.61,.36,1), font-size 0.2s;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.nav-links a {
+    transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+/* Remove hover/focus rules — use .clicked instead */
+
+/* Base interactive background (was hover ::before) */
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.18);
+    border-radius: 22%;
+    box-shadow: 0 4px 24px 0 rgba(255,255,255,0.18);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s, box-shadow 0.3s, background 0.3s, transform 0.3s;
+    z-index: -1;
+}
+
+/* Clicked state replaces hover/focus for anchors */
+.nav-links li a.clicked::before {
+    opacity: 1;
+    background: rgba(255,255,255,0.32);
+    box-shadow: 0 8px 32px 0 rgba(255,255,255,0.28);
+    border-radius: 22%;
+    transform: scale(1.13);
+}
+.nav-links li a.clicked {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transform: scale(1.13);
+    box-shadow: 0 2px 18px 0 rgba(255,255,255,0.10);
+    outline: none;
+}
+
+/* Dark theme clicked variants */
+:root.dark-theme .nav-links li a::before {
+    background: rgba(0,177,64,0.18) !important;
+    box-shadow: 0 8px 32px 0 rgba(0,177,64,0.28) !important;
+}
+:root.dark-theme .nav-links li a.clicked::before {
+    background: rgba(0,177,64,0.32) !important;
+    box-shadow: 0 8px 32px 0 rgba(0,177,64,0.38) !important;
+}
+:root.dark-theme .nav-links li a.clicked {
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transform: scale(1.13);
+    box-shadow: 0 2px 18px 0 rgba(0,177,64,0.18);
+    outline: none;
+}
+
+/* Light theme clicked variants */
+:root.light-theme .nav-links li a::before {
+    background: rgba(0,120,255,0.18) !important;
+    box-shadow: 0 8px 32px 0 rgba(0,120,255,0.28) !important;
+}
+:root.light-theme .nav-links li a.clicked::before {
+    background: rgba(0,120,255,0.32) !important;
+    box-shadow: 0 8px 32px 0 rgba(0,120,255,0.38) !important;
+}
+:root.light-theme .nav-links li a.clicked {
+    color: #232323 !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transform: scale(1.13);
+    box-shadow: 0 2px 18px 0 rgba(0,120,255,0.18);
+    outline: none;
+}
+
+/* Section and card clicked states (replace hover) */
+:root.light-theme main section.clicked, :root.light-theme .hero-content.clicked, :root.light-theme .skills-grid.clicked, :root.light-theme .projects-grid.clicked, :root.light-theme .project-card.clicked, :root.light-theme .contact-section.clicked {
+    background: #f7f7f7 !important;
+    color: #111 !important;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+    text-shadow: 0 2px 8px #fff8, 0 1px 0 #0001;
+    transform: scale(0.97) translateY(2px);
+}
+
+:root.dark-theme main section.clicked, :root.dark-theme .hero-content.clicked, :root.dark-theme .skills-grid.clicked, :root.dark-theme .projects-grid.clicked, :root.dark-theme .project-card.clicked, :root.dark-theme .contact-section.clicked {
+    background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(24,24,24,0.75) 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 48px 0 rgba(255,255,255,0.10), 0 2px 24px 0 rgba(0,0,0,0.22);
+    transform: scale(0.97) translateY(2px);
+    text-shadow: 0 2px 8px #0008, 0 1px 0 #fff2;
+}
+
+/* Remove :hover rules on skill-card and provide .clicked instead */
+.skill-card {
+    background: linear-gradient(135deg, #e3e3e3 0%, #bdbdbd 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(160,160,160,0.18);
+    padding: 1.2rem 1rem 1.5rem 1rem;
+    min-height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.skill-card.clicked {
+    box-shadow: 0 8px 32px 0 rgba(160,160,160,0.32);
+    transform: scale(1.04) translateY(-2px);
+}
+.skill-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.7rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px #0002);
+}
+.skill-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.2rem 0 0.7rem 0;
+    text-align: center;
+}
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 0.7rem;
+    overflow: hidden;
+}
+.skill-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    width: var(--fill-width, 50%);
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #ff004f 0%, #ffe600 16%, #00b140 32%, #00cfff 48%, #ff7f00 64%, #8000ff 80%, #ff00ff 90%, #00ffea 100%);
+}
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    .skill-card {
+        padding: 0.7rem 0.5rem 1rem 0.5rem;
+        min-height: 140px;
+    }
+    .skill-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Footer styling according to theme */
+footer#footer {
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    border-top: 2px solid #eee;
+    transition: background 0.4s, color 0.4s;
+}
+:root.dark-theme footer#footer {
+    background: #181818;
+    color: #f3f3f3;
+    border-top: 2px solid #222;
+}
+:root.light-theme footer#footer {
+    background: #f7f7f7;
+    color: #232323;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Back to Top button styling according to theme */
+.back-to-top {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7em 1.4em;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.dark-theme .back-to-top {
+    background: #232323;
+    color: #00b140;
+    box-shadow: 0 2px 16px 0 rgba(255,0,32,0.18);
+}
+:root.dark-theme .back-to-top:hover {
+    background: #00b140;
+    color: #181818;
+    box-shadow: 0 6px 32px 0 rgba(255,0,32,0.32);
+}
+:root.light-theme .back-to-top {
+    background: #e0f7fa;
+    color: #0070ff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .back-to-top:hover {
+    background: #0070ff;
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Profile image: small, round, theme-adaptive */
+.profile-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+    border: 3px solid #fff;
+    background: #eee;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.3s, border 0.3s;
+}
+:root.dark-theme .profile-img {
+    border: 3px solid #232323;
+    background: #181818;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.light-theme .profile-img {
+    border: 3px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+
+/* View Projects button styles */
+.view-projects-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.8em 2em;
+    font-size: 1.08rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition:  0.3s, color 0.3s, box-shadow 0.3s, transform 0.18s;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%);
+    color: #fff;
+}
+.view-projects-btn:hover, .view-projects-btn:focus {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+.view-projects-btn.clicked {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+:root.light-theme .view-projects-btn {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .view-projects-btn:hover, :root.light-theme .view-projects-btn:focus {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Floating theme toggle button (left, draggable) */
+.floating-theme-toggle {
+    position: fixed;
+    left: 24px;
+    top: 50vh;
+    z-index: 3002;
+    box-shadow: 0 2px 8px #0002, 0 0 0 2px #fff2;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: grab;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.floating-theme-toggle:active {
+    cursor: grabbing;
+    box-shadow: 0 0 0 6px #fff3, 0 2px 8px #0002;
+}
+.floating-theme-toggle.clicked {
+    background: #fff;
+    color: #111;
+}
+
+/* Remove theme-toggle from nav bar if present */
+header .theme-toggle, nav .theme-toggle {
+    display: none !important;
+}
+
+/* 1. Theme backgrounds: true white for light, true black for dark */
+:root.light-theme body {
+    background: #fff !important;
+    color: #232323;
+}
+:root.dark-theme body {
+    background: #111 !important;
+    color: #f3f3f3;
+}
+
+/* 1) Dark theme: section hover box-shadow is red */
+:root.dark-theme main section:hover, :root.dark-theme .hero-content:hover, :root.dark-theme .skills-grid:hover, :root.dark-theme .projects-grid:hover, :root.dark-theme .project-card:hover, :root.dark-theme .contact-section:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,32,0.38) !important;
+}
+
+/* 2) White theme: nav bar box-shadow thick blue, nav bar layout top right */
+:root.light-theme header#header {
+    box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+    background: #fff !important;
+}
+:root.light-theme header#header nav {
+    justify-content: flex-end;
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem 2rem;
+}
+:root.light-theme .nav-links {
+    justify-content: flex-end;
+}
+
+/* 3) Responsive nav: black glass w/ green hover for dark, white w/ blue hover for light */
+@media (max-width: 700px) {
+    :root.dark-theme .nav-links {
+        background: rgba(24,24,24,0.95) !important;
+        box-shadow: -2px 0 16px rgba(0,177,64,0.18) !important;
+    }
+    :root.dark-theme .nav-links li a {
+        color: #fff !important;
+    }
+    :root.dark-theme .nav-links li a:hover, :root.dark-theme .nav-links li a:focus {
+        background: rgba(0,177,64,0.22) !important;
+        color: #fff !important;
+    }
+    :root.light-theme .nav-links {
+        background: #fff !important;
+        box-shadow: -2px 0 16px rgba(0,120,255,0.38) !important;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 1) Responsive nav bar arrangement for white theme (like black theme) */
+@media (max-width: 700px) {
+    :root.light-theme .nav-links {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        background: #fff !important;
+        box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+        padding: 1rem 0.5rem;
+        z-index: 2100;
+        transform: translateY(0);
+    }
+    :root.light-theme .nav-links li {
+        margin: 0 0.5rem;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 2) Contact button color for theme */
+.contact-fab {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.light-theme .contact-fab {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+:root.dark-theme .contact-fab {
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.dark-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+}
+
+/* Structured skill section with logos */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Skill card with silver metallic background */
+.skill-card {
+    background: linear-gradient(135deg, #e3e3e3 0%, #bdbdbd 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(160,160,160,0.18);
+    padding: 1.2rem 1rem 1.5rem 1rem;
+    min-height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.skill-card.clicked {
+    box-shadow: 0 8px 32px 0 rgba(160,160,160,0.32);
+    transform: scale(1.04) translateY(-2px);
+}
+.skill-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.7rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px #0002);
+}
+.skill-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.2rem 0 0.7rem 0;
+    text-align: center;
+}
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 0.7rem;
+    overflow: hidden;
+}
+.skill-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    width: var(--fill-width, 50%);
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #ff004f 0%, #ffe600 16%, #00b140 32%, #00cfff 48%, #ff7f00 64%, #8000ff 80%, #ff00ff 90%, #00ffea 100%);
+}
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    .skill-card {
+        padding: 0.7rem 0.5rem 1rem 0.5rem;
+        min-height: 140px;
+    }
+    .skill-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Footer styling according to theme */
+footer#footer {
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    border-top: 2px solid #eee;
+    transition: background 0.4s, color 0.4s;
+}
+:root.dark-theme footer#footer {
+    background: #181818;
+    color: #f3f3f3;
+    border-top: 2px solid #222;
+}
+:root.light-theme footer#footer {
+    background: #f7f7f7;
+    color: #232323;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Back to Top button styling according to theme */
+.back-to-top {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7em 1.4em;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.dark-theme .back-to-top {
+    background: #232323;
+    color: #00b140;
+    box-shadow: 0 2px 16px 0 rgba(255,0,32,0.18);
+}
+:root.dark-theme .back-to-top:hover {
+    background: #00b140;
+    color: #181818;
+    box-shadow: 0 6px 32px 0 rgba(255,0,32,0.32);
+}
+:root.light-theme .back-to-top {
+    background: #e0f7fa;
+    color: #0070ff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .back-to-top:hover {
+    background: #0070ff;
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Profile image: small, round, theme-adaptive */
+.profile-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+    border: 3px solid #fff;
+    background: #eee;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.3s, border 0.3s;
+}
+:root.dark-theme .profile-img {
+    border: 3px solid #232323;
+    background: #181818;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.light-theme .profile-img {
+    border: 3px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+
+/* View Projects button styles */
+.view-projects-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.8em 2em;
+    font-size: 1.08rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition:  0.3s, color 0.3s, box-shadow 0.3s, transform 0.18s;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%);
+    color: #fff;
+}
+.view-projects-btn:hover, .view-projects-btn:focus {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+.view-projects-btn.clicked {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+:root.light-theme .view-projects-btn {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .view-projects-btn:hover, :root.light-theme .view-projects-btn:focus {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Floating theme toggle button (left, draggable) */
+.floating-theme-toggle {
+    position: fixed;
+    left: 24px;
+    top: 50vh;
+    z-index: 3002;
+    box-shadow: 0 2px 8px #0002, 0 0 0 2px #fff2;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: grab;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.floating-theme-toggle:active {
+    cursor: grabbing;
+    box-shadow: 0 0 0 6px #fff3, 0 2px 8px #0002;
+}
+.floating-theme-toggle.clicked {
+    background: #fff;
+    color: #111;
+}
+
+/* Remove theme-toggle from nav bar if present */
+header .theme-toggle, nav .theme-toggle {
+    display: none !important;
+}
+
+/* 1. Theme backgrounds: true white for light, true black for dark */
+:root.light-theme body {
+    background: #fff !important;
+    color: #232323;
+}
+:root.dark-theme body {
+    background: #111 !important;
+    color: #f3f3f3;
+}
+
+/* 1) Dark theme: section hover box-shadow is red */
+:root.dark-theme main section:hover, :root.dark-theme .hero-content:hover, :root.dark-theme .skills-grid:hover, :root.dark-theme .projects-grid:hover, :root.dark-theme .project-card:hover, :root.dark-theme .contact-section:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,32,0.38) !important;
+}
+
+/* 2) White theme: nav bar box-shadow thick blue, nav bar layout top right */
+:root.light-theme header#header {
+    box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+    background: #fff !important;
+}
+:root.light-theme header#header nav {
+    justify-content: flex-end;
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem 2rem;
+}
+:root.light-theme .nav-links {
+    justify-content: flex-end;
+}
+
+/* 3) Responsive nav: black glass w/ green hover for dark, white w/ blue hover for light */
+@media (max-width: 700px) {
+    :root.dark-theme .nav-links {
+        background: rgba(24,24,24,0.95) !important;
+        box-shadow: -2px 0 16px rgba(0,177,64,0.18) !important;
+    }
+    :root.dark-theme .nav-links li a {
+        color: #fff !important;
+    }
+    :root.dark-theme .nav-links li a:hover, :root.dark-theme .nav-links li a:focus {
+        background: rgba(0,177,64,0.22) !important;
+        color: #fff !important;
+    }
+    :root.light-theme .nav-links {
+        background: #fff !important;
+        box-shadow: -2px 0 16px rgba(0,120,255,0.38) !important;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 1) Responsive nav bar arrangement for white theme (like black theme) */
+@media (max-width: 700px) {
+    :root.light-theme .nav-links {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        background: #fff !important;
+        box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+        padding: 1rem 0.5rem;
+        z-index: 2100;
+        transform: translateY(0);
+    }
+    :root.light-theme .nav-links li {
+        margin: 0 0.5rem;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 2) Contact button color for theme */
+.contact-fab {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.light-theme .contact-fab {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+:root.dark-theme .contact-fab {
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.dark-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+}
+
+/* Structured skill section with logos */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Skill card with silver metallic background */
+.skill-card {
+    background: linear-gradient(135deg, #e3e3e3 0%, #bdbdbd 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(160,160,160,0.18);
+    padding: 1.2rem 1rem 1.5rem 1rem;
+    min-height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.skill-card.clicked {
+    box-shadow: 0 8px 32px 0 rgba(160,160,160,0.32);
+    transform: scale(1.04) translateY(-2px);
+}
+.skill-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.7rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px #0002);
+}
+.skill-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.2rem 0 0.7rem 0;
+    text-align: center;
+}
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 0.7rem;
+    overflow: hidden;
+}
+.skill-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    width: var(--fill-width, 50%);
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #ff004f 0%, #ffe600 16%, #00b140 32%, #00cfff 48%, #ff7f00 64%, #8000ff 80%, #ff00ff 90%, #00ffea 100%);
+}
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    .skill-card {
+        padding: 0.7rem 0.5rem 1rem 0.5rem;
+        min-height: 140px;
+    }
+    .skill-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Footer styling according to theme */
+footer#footer {
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    border-top: 2px solid #eee;
+    transition: background 0.4s, color 0.4s;
+}
+:root.dark-theme footer#footer {
+    background: #181818;
+    color: #f3f3f3;
+    border-top: 2px solid #222;
+}
+:root.light-theme footer#footer {
+    background: #f7f7f7;
+    color: #232323;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Back to Top button styling according to theme */
+.back-to-top {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7em 1.4em;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.dark-theme .back-to-top {
+    background: #232323;
+    color: #00b140;
+    box-shadow: 0 2px 16px 0 rgba(255,0,32,0.18);
+}
+:root.dark-theme .back-to-top:hover {
+    background: #00b140;
+    color: #181818;
+    box-shadow: 0 6px 32px 0 rgba(255,0,32,0.32);
+}
+:root.light-theme .back-to-top {
+    background: #e0f7fa;
+    color: #0070ff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .back-to-top:hover {
+    background: #0070ff;
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Profile image: small, round, theme-adaptive */
+.profile-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+    border: 3px solid #fff;
+    background: #eee;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.3s, border 0.3s;
+}
+:root.dark-theme .profile-img {
+    border: 3px solid #232323;
+    background: #181818;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.light-theme .profile-img {
+    border: 3px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+
+/* View Projects button styles */
+.view-projects-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.8em 2em;
+    font-size: 1.08rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition:  0.3s, color 0.3s, box-shadow 0.3s, transform 0.18s;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%);
+    color: #fff;
+}
+.view-projects-btn:hover, .view-projects-btn:focus {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+.view-projects-btn.clicked {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+:root.light-theme .view-projects-btn {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .view-projects-btn:hover, :root.light-theme .view-projects-btn:focus {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Floating theme toggle button (left, draggable) */
+.floating-theme-toggle {
+    position: fixed;
+    left: 24px;
+    top: 50vh;
+    z-index: 3002;
+    box-shadow: 0 2px 8px #0002, 0 0 0 2px #fff2;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: grab;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.floating-theme-toggle:active {
+    cursor: grabbing;
+    box-shadow: 0 0 0 6px #fff3, 0 2px 8px #0002;
+}
+.floating-theme-toggle.clicked {
+    background: #fff;
+    color: #111;
+}
+
+/* Remove theme-toggle from nav bar if present */
+header .theme-toggle, nav .theme-toggle {
+    display: none !important;
+}
+
+/* 1. Theme backgrounds: true white for light, true black for dark */
+:root.light-theme body {
+    background: #fff !important;
+    color: #232323;
+}
+:root.dark-theme body {
+    background: #111 !important;
+    color: #f3f3f3;
+}
+
+/* 1) Dark theme: section hover box-shadow is red */
+:root.dark-theme main section:hover, :root.dark-theme .hero-content:hover, :root.dark-theme .skills-grid:hover, :root.dark-theme .projects-grid:hover, :root.dark-theme .project-card:hover, :root.dark-theme .contact-section:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,32,0.38) !important;
+}
+
+/* 2) White theme: nav bar box-shadow thick blue, nav bar layout top right */
+:root.light-theme header#header {
+    box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+    background: #fff !important;
+}
+:root.light-theme header#header nav {
+    justify-content: flex-end;
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem 2rem;
+}
+:root.light-theme .nav-links {
+    justify-content: flex-end;
+}
+
+/* 3) Responsive nav: black glass w/ green hover for dark, white w/ blue hover for light */
+@media (max-width: 700px) {
+    :root.dark-theme .nav-links {
+        background: rgba(24,24,24,0.95) !important;
+        box-shadow: -2px 0 16px rgba(0,177,64,0.18) !important;
+    }
+    :root.dark-theme .nav-links li a {
+        color: #fff !important;
+    }
+    :root.dark-theme .nav-links li a:hover, :root.dark-theme .nav-links li a:focus {
+        background: rgba(0,177,64,0.22) !important;
+        color: #fff !important;
+    }
+    :root.light-theme .nav-links {
+        background: #fff !important;
+        box-shadow: -2px 0 16px rgba(0,120,255,0.38) !important;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 1) Responsive nav bar arrangement for white theme (like black theme) */
+@media (max-width: 700px) {
+    :root.light-theme .nav-links {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        background: #fff !important;
+        box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+        padding: 1rem 0.5rem;
+        z-index: 2100;
+        transform: translateY(0);
+    }
+    :root.light-theme .nav-links li {
+        margin: 0 0.5rem;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 2) Contact button color for theme */
+.contact-fab {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.light-theme .contact-fab {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+:root.dark-theme .contact-fab {
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.dark-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+}
+
+/* Structured skill section with logos */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Skill card with silver metallic background */
+.skill-card {
+    background: linear-gradient(135deg, #e3e3e3 0%, #bdbdbd 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(160,160,160,0.18);
+    padding: 1.2rem 1rem 1.5rem 1rem;
+    min-height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.skill-card.clicked {
+    box-shadow: 0 8px 32px 0 rgba(160,160,160,0.32);
+    transform: scale(1.04) translateY(-2px);
+}
+.skill-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.7rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px #0002);
+}
+.skill-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.2rem 0 0.7rem 0;
+    text-align: center;
+}
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 0.7rem;
+    overflow: hidden;
+}
+.skill-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    width: var(--fill-width, 50%);
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #ff004f 0%, #ffe600 16%, #00b140 32%, #00cfff 48%, #ff7f00 64%, #8000ff 80%, #ff00ff 90%, #00ffea 100%);
+}
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    .skill-card {
+        padding: 0.7rem 0.5rem 1rem 0.5rem;
+        min-height: 140px;
+    }
+    .skill-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Footer styling according to theme */
+footer#footer {
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    border-top: 2px solid #eee;
+    transition: background 0.4s, color 0.4s;
+}
+:root.dark-theme footer#footer {
+    background: #181818;
+    color: #f3f3f3;
+    border-top: 2px solid #222;
+}
+:root.light-theme footer#footer {
+    background: #f7f7f7;
+    color: #232323;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Back to Top button styling according to theme */
+.back-to-top {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7em 1.4em;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.dark-theme .back-to-top {
+    background: #232323;
+    color: #00b140;
+    box-shadow: 0 2px 16px 0 rgba(255,0,32,0.18);
+}
+:root.dark-theme .back-to-top:hover {
+    background: #00b140;
+    color: #181818;
+    box-shadow: 0 6px 32px 0 rgba(255,0,32,0.32);
+}
+:root.light-theme .back-to-top {
+    background: #e0f7fa;
+    color: #0070ff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .back-to-top:hover {
+    background: #0070ff;
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Profile image: small, round, theme-adaptive */
+.profile-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+    border: 3px solid #fff;
+    background: #eee;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.3s, border 0.3s;
+}
+:root.dark-theme .profile-img {
+    border: 3px solid #232323;
+    background: #181818;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.light-theme .profile-img {
+    border: 3px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+
+/* View Projects button styles */
+.view-projects-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.8em 2em;
+    font-size: 1.08rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition:  0.3s, color 0.3s, box-shadow 0.3s, transform 0.18s;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%);
+    color: #fff;
+}
+.view-projects-btn:hover, .view-projects-btn:focus {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+.view-projects-btn.clicked {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%);
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+    transform: scale(1.07) translateY(-2px);
+}
+:root.light-theme .view-projects-btn {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .view-projects-btn:hover, :root.light-theme .view-projects-btn:focus {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Floating theme toggle button (left, draggable) */
+.floating-theme-toggle {
+    position: fixed;
+    left: 24px;
+    top: 50vh;
+    z-index: 3002;
+    box-shadow: 0 2px 8px #0002, 0 0 0 2px #fff2;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: grab;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.floating-theme-toggle:active {
+    cursor: grabbing;
+    box-shadow: 0 0 0 6px #fff3, 0 2px 8px #0002;
+}
+.floating-theme-toggle.clicked {
+    background: #fff;
+    color: #111;
+}
+
+/* Remove theme-toggle from nav bar if present */
+header .theme-toggle, nav .theme-toggle {
+    display: none !important;
+}
+
+/* 1. Theme backgrounds: true white for light, true black for dark */
+:root.light-theme body {
+    background: #fff !important;
+    color: #232323;
+}
+:root.dark-theme body {
+    background: #111 !important;
+    color: #f3f3f3;
+}
+
+/* 1) Dark theme: section hover box-shadow is red */
+:root.dark-theme main section:hover, :root.dark-theme .hero-content:hover, :root.dark-theme .skills-grid:hover, :root.dark-theme .projects-grid:hover, :root.dark-theme .project-card:hover, :root.dark-theme .contact-section:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,32,0.38) !important;
+}
+
+/* 2) White theme: nav bar box-shadow thick blue, nav bar layout top right */
+:root.light-theme header#header {
+    box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+    background: #fff !important;
+}
+:root.light-theme header#header nav {
+    justify-content: flex-end;
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem 2rem;
+}
+:root.light-theme .nav-links {
+    justify-content: flex-end;
+}
+
+/* 3) Responsive nav: black glass w/ green hover for dark, white w/ blue hover for light */
+@media (max-width: 700px) {
+    :root.dark-theme .nav-links {
+        background: rgba(24,24,24,0.95) !important;
+        box-shadow: -2px 0 16px rgba(0,177,64,0.18) !important;
+    }
+    :root.dark-theme .nav-links li a {
+        color: #fff !important;
+    }
+    :root.dark-theme .nav-links li a:hover, :root.dark-theme .nav-links li a:focus {
+        background: rgba(0,177,64,0.22) !important;
+        color: #fff !important;
+    }
+    :root.light-theme .nav-links {
+        background: #fff !important;
+        box-shadow: -2px 0 16px rgba(0,120,255,0.38) !important;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 1) Responsive nav bar arrangement for white theme (like black theme) */
+@media (max-width: 700px) {
+    :root.light-theme .nav-links {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        background: #fff !important;
+        box-shadow: 0 4px 32px 0 rgba(0,120,255,0.38) !important;
+        padding: 1rem 0.5rem;
+        z-index: 2100;
+        transform: translateY(0);
+    }
+    :root.light-theme .nav-links li {
+        margin: 0 0.5rem;
+    }
+    :root.light-theme .nav-links li a {
+        color: #232323 !important;
+    }
+    :root.light-theme .nav-links li a:hover, :root.light-theme .nav-links li a:focus {
+        background: rgba(0,120,255,0.22) !important;
+        color: #232323 !important;
+    }
+}
+
+/* 2) Contact button color for theme */
+.contact-fab {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.light-theme .contact-fab {
+    background: linear-gradient(120deg, #0070ff 0%, #00cfff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #00cfff 0%, #0070ff 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+:root.dark-theme .contact-fab {
+    background: linear-gradient(120deg, #00b140 0%, #b2dfdb 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.dark-theme .contact-fab:hover {
+    background: linear-gradient(120deg, #b2dfdb 0%, #00b140 100%) !important;
+    box-shadow: 0 6px 32px 0 rgba(0,177,64,0.32);
+}
+
+/* Structured skill section with logos */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Skill card with silver metallic background */
+.skill-card {
+    background: linear-gradient(135deg, #e3e3e3 0%, #bdbdbd 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(160,160,160,0.18);
+    padding: 1.2rem 1rem 1.5rem 1rem;
+    min-height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.skill-card.clicked {
+    box-shadow: 0 8px 32px 0 rgba(160,160,160,0.32);
+    transform: scale(1.04) translateY(-2px);
+}
+.skill-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.7rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px #0002);
+}
+.skill-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.2rem 0 0.7rem 0;
+    text-align: center;
+}
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 0.7rem;
+    overflow: hidden;
+}
+.skill-fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    width: var(--fill-width, 50%);
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #ff004f 0%, #ffe600 16%, #00b140 32%, #00cfff 48%, #ff7f00 64%, #8000ff 80%, #ff00ff 90%, #00ffea 100%);
+}
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    .skill-card {
+        padding: 0.7rem 0.5rem 1rem 0.5rem;
+        min-height: 140px;
+    }
+    .skill-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Footer styling according to theme */
+footer#footer {
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    border-top: 2px solid #eee;
+    transition: background 0.4s, color 0.4s;
+}
+:root.dark-theme footer#footer {
+    background: #181818;
+    color: #f3f3f3;
+    border-top: 2px solid #222;
+}
+:root.light-theme footer#footer {
+    background: #f7f7f7;
+    color: #232323;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Back to Top button styling according to theme */
+.back-to-top {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7em 1.4em;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+:root.dark-theme .back-to-top {
+    background: #232323;
+    color: #00b140;
+    box-shadow: 0 2px 16px 0 rgba(255,0,32,0.18);
+}
+:root.dark-theme .back-to-top:hover {
+    background: #00b140;
+    color: #181818;
+    box-shadow: 0 6px 32px 0 rgba(255,0,32,0.32);
+}
+:root.light-theme .back-to-top {
+    background: #e0f7fa;
+    color: #0070ff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+:root.light-theme .back-to-top:hover {
+    background: #0070ff;
+    color: #fff;
+    box-shadow: 0 6px 32px 0 rgba(0,120,255,0.32);
+}
+
+/* Profile image: small, round, theme-adaptive */
+.profile-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+    border: 3px solid #fff;
+    background: #eee;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.3s, border 0.3s;
+}
+:root.dark-theme .profile-img {
+    border: 3px solid #232323;
+    background: #181818;
+    box-shadow: 0 2px 16px 0 rgba(0,177,64,0.18);
+}
+:root.light-theme .profile-img {
+    border: 3px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,120,255,0.18);
+}
+
+/* View Projects button styles */
+.view

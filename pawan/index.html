@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawan Lokesh</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Added: responsive side-drawer for light theme and improved hover styles -->
+	<style>
+		/* ...keep other global styles... */
+
+		/* Smooth link hover transitions */
+		.nav-links a {
+			transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+		}
+
+		/* Desktop/light hover enhancement (also applied in drawer)
+		   Exclude the About link from hover effects */
+		.nav-links a:not([href="#about"]):hover {
+			background: rgba(0,0,0,0.03);
+		}
+
+		/* When in light theme and on small screens, show nav as side drawer */
+		@media (max-width: 700px) {
+			html.light-theme .nav-links {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 100vh;
+				width: 260px;
+				max-width: 80%;
+				background: #ffffff;
+				box-shadow: 2px 12px 30px rgba(10,30,70,0.07);
+				transform: translateX(-110%);
+				transition: transform .28s cubic-bezier(.2,.9,.2,1);
+				padding-top: 72px; /* account for header */
+				z-index: 3000;
+				overflow-y: auto;
+				display: block;
+			}
+			html.light-theme .nav-links.open {
+				transform: translateX(0);
+			}
+			html.light-theme .nav-links li {
+				margin: 0;
+			}
+			html.light-theme .nav-links a {
+				display: block;
+				padding: 12px 18px;
+				color: #111827;
+				text-decoration: none;
+				border-radius: 8px;
+				margin: 8px 12px;
+				font-weight: 500;
+			}
+			/* Blue hover with subtle shadow - exclude About link */
+			html.light-theme .nav-links a:not([href="#about"]):hover {
+				background: #eaf3ff;
+				color: #0b5bff;
+				box-shadow: 0 8px 20px rgba(11,91,255,0.10);
+			}
+			/* Ensure the hamburger sits above the drawer */
+			.nav-toggle {
+				z-index: 3100;
+			}
+		}
+	</style>
+</head>
+<body>
+    <button class="theme-toggle floating-theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">🌓</button>
+    <header id="header">
+        <nav>
+            <button class="logo rs-logo" aria-label="Show Resume" id="resumeLogoBtn">
+                <span class="logo-text">Pawan Lokesh</span>
+            </button>
+            <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Resume PDF overlay -->
+    <div id="resumeOverlay" class="resume-overlay" aria-hidden="true">
+        <button class="close-resume" aria-label="Close Resume">&times;</button>
+        <iframe src="resume.pdf" title="Resume PDF" frameborder="0"></iframe>
+    </div>
+
+    <main>
+        <section id="about" class="hero">
+            <div class="hero-content">
+                <img src="PAWAN.jpg" alt="Profile Image" class="profile-img">
+                <h1>I’m a Software Engineer</h1>
+                <p>I’m a passionate software developer who loves turning ideas into real, working applications. I enjoy exploring new technologies, writing clean and efficient code, and constantly learning to improve my skills. My goal is to build meaningful, reliable solutions that make a real difference through technology.</p>
+                <a href="#projects" class="cta-button">View Projects</a>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>HTML</h3>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill-width: 60%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>CSS</h3>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill-width: 50%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>JavaScript</h3>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill-width: 50%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>Git</h3>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill-width: 40%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>React</h3>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill-width: 10%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    
+                    <h3>Project 1: Paddy Leaf Disease Detection Using Thermal Images  </h3>
+                    <p>Built a deep learning model to classify paddy leaf diseases from thermal images using CNNs. 
+Preprocessed image data, trained models using TensorFlow/Keras, and evaluated performance. 
+Organized project with clear README and code modules for reproducibility. </p>
+                </div>
+                <div class="project-card">
+                    
+                    <h3>Project 2: KFC Billing System </h3>
+                    <p>Designed a simple command-line billing system for a fast-food restaurant using Python. Implemented 
+menu-driven interface, item selection, quantity tracking, and bill generation features. Demonstrated 
+strong logic building, user input handling, and file operations. </p>
+                    
+                </div>
+                <div class="project-card">
+                    <h3>Project 3: Client Feedback Analysis</h3>
+                    <p>Analyzed structured and unstructured client feedback using Python, Excel, and Power BI to uncover 
+service gaps and recurring issues. Created interactive dashboards to visualize key trends and provided 
+actionable insights to enhance client satisfaction.</p>
+                   
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="contact-section visually-hidden">
+            <h2>Contact Me</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/PAWAN-LOKESH/" target="_blank">Linkedin</a>
+                <a href="https://github.com/PAWANLOKESH" target="_blank">GitHub</a>
+            </div>
+        </section>
+        <button class="contact-fab" aria-label="Open contact panel">✉️ Contact</button>
+        <aside class="contact-slider" aria-hidden="true">
+            <button class="close-slider" aria-label="Close contact panel">&times;</button>
+            <h3>Send a message</h3>
+            <form class="contact-form slider-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit" class="submit-button">Send</button>
+            </form>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/PAWAN-LOKESH/" target="_blank">Linkedin</a>
+                <a href="https://github.com/PAWANLOKESH" target="_blank">GitHub</a>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer id="footer">
+        <p style="color: brown;opacity: 1;font-size: large; font-style: italic;">This is End of the world</p>
+        <a href="#header" class="back-to-top">Back to Top</a>
+    </footer>
+
+    <script>
+        (function(){
+            const fab = document.querySelector('.contact-fab');
+            const slider = document.querySelector('.contact-slider');
+            const closeBtn = document.querySelector('.close-slider');
+            const form = slider.querySelector('.slider-form');
+
+            function openSlider(){
+                slider.classList.add('open');
+                slider.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSlider(){
+                slider.classList.remove('open');
+                slider.setAttribute('aria-hidden','true');
+                document.body.style.overflow = '';
+            }
+
+            fab.addEventListener('click', openSlider);
+            closeBtn.addEventListener('click', closeSlider);
+            slider.addEventListener('click', function(e){
+                if(e.target === slider) closeSlider();
+            });
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && slider.classList.contains('open')) closeSlider();
+            });
+
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                const data = new FormData(form);
+                const name = data.get('name');
+                alert('Thanks, ' + (name || 'there') + '! Your message was sent (demo).');
+                form.reset();
+                closeSlider();
+            });
+        })();
+
+        // Mobile nav toggle
+        (function(){
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            navToggle.addEventListener('click', function(){
+                const open = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            // Close nav on link click (mobile)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(window.innerWidth <= 700) {
+                        navLinks.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded','false');
+                    }
+                });
+            });
+        })();
+
+        /* Added: open contact slider when user clicks the "Contact" nav link.
+		   This triggers the same behavior as clicking the contact FAB,
+		   and also closes the mobile nav if it is open. */
+		(function(){
+			const contactNavLink = document.querySelector('.nav-links a[href="#contact"]');
+			const contactFab = document.querySelector('.contact-fab');
+			const navLinks = document.querySelector('.nav-links');
+			const navToggle = document.querySelector('.nav-toggle');
+
+			if(contactNavLink && contactFab){
+				contactNavLink.addEventListener('click', function(e){
+					// prevent default anchor scroll
+					e.preventDefault();
+
+					// Open contact slider via FAB click (keeps existing logic)
+					contactFab.click();
+
+					// Close mobile nav if open
+					if(navLinks && navLinks.classList.contains('open')){
+						navLinks.classList.remove('open');
+						if(navToggle) navToggle.setAttribute('aria-expanded','false');
+					}
+				});
+			}
+		})();
+
+        // Resume overlay logic
+        (function(){
+            const logoBtn = document.getElementById('resumeLogoBtn');
+            const overlay = document.getElementById('resumeOverlay');
+            const closeBtn = overlay.querySelector('.close-resume');
+            logoBtn.addEventListener('click', function(){
+                overlay.classList.add('open');
+                overlay.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+            });
+            closeBtn.addEventListener('click', function(){
+                overlay.classList.remove('open');
+                overlay.setAttribute('aria-hidden','true');
+                document.body.style.overflow = '';
+            });
+            overlay.addEventListener('click', function(e){
+                if(e.target === overlay) closeBtn.click();
+            });
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && overlay.classList.contains('open')) closeBtn.click();
+            });
+        })();
+
+        // Theme toggle logic (fixed)
+        (function(){
+            const btn = document.getElementById('themeToggleBtn');
+            const html = document.documentElement;
+            function setTheme(theme) {
+                if(theme === 'light') {
+                    html.classList.add('light-theme');
+                    html.classList.remove('dark-theme');
+                    btn.textContent = '🌞';
+                } else {
+                    html.classList.add('dark-theme');
+                    html.classList.remove('light-theme');
+                    btn.textContent = '🌚';
+                }
+                localStorage.setItem('theme', theme);
+            }
+            btn.addEventListener('click', function(){
+                const isLight = html.classList.contains('light-theme');
+                setTheme(isLight ? 'dark' : 'light');
+            });
+            // On load, set theme from localStorage or default to dark
+            setTheme(localStorage.getItem('theme') || 'dark');
+        })();
+        // Floating theme button drag logic
+        (function(){
+            const btn = document.getElementById('themeToggleBtn');
+            let isDragging = false, offsetX = 0, offsetY = 0;
+            btn.addEventListener('mousedown', function(e){
+                isDragging = true;
+                offsetX = e.clientX - btn.offsetLeft;
+                offsetY = e.clientY - btn.offsetTop;
+                btn.style.transition = 'none';
+                document.body.style.userSelect = 'none';
+            });
+            document.addEventListener('mousemove', function(e){
+                if(isDragging){
+                    btn.style.left = (e.clientX - offsetX) + 'px';
+                    btn.style.top = (e.clientY - offsetY) + 'px';
+                }
+            });
+            document.addEventListener('mouseup', function(){
+                isDragging = false;
+                btn.style.transition = '';
+                document.body.style.userSelect = '';
+            });
+            // Touch support
+            btn.addEventListener('touchstart', function(e){
+                isDragging = true;
+                const touch = e.touches[0];
+                offsetX = touch.clientX - btn.offsetLeft;
+                offsetY = touch.clientY - btn.offsetTop;
+                btn.style.transition = 'none';
+            });
+            document.addEventListener('touchmove', function(e){
+                if(isDragging){
+                    const touch = e.touches[0];
+                    btn.style.left = (touch.clientX - offsetX) + 'px';
+                    btn.style.top = (touch.clientY - offsetY) + 'px';
+                }
+            });
+            document.addEventListener('touchend', function(){
+                isDragging = false;
+                btn.style.transition = '';
+            });
+            // Initial position (left side, vertically centered)
+            btn.style.position = 'fixed';
+            btn.style.left = '24px';
+            btn.style.top = '50vh';
+            btn.style.zIndex = 3002;
+        })();
+
+        // Back to Top button functionality
+        (function(){
+            var backToTop = document.querySelector('.back-to-top');
+            if(backToTop){
+                backToTop.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        })();
+
+        /* Added: replace hover interactions with click interactions.
+           - Anchors (.nav-links a) get a short "clicked" visual feedback.
+           - Larger blocks (sections, cards, grids) toggle a persistent "clicked" class.
+           - Avoid toggling when user clicks form controls or navigational anchors. */
+        (function(){
+            // transient feedback for anchors (short visual pulse)
+            document.querySelectorAll('.nav-links li a').forEach(a => {
+                a.addEventListener('click', function(e){
+                    // allow normal navigation behavior for anchors,
+                    // but give a brief visual feedback
+                    a.classList.add('clicked');
+                    setTimeout(() => a.classList.remove('clicked'), 900);
+                });
+            });
+
+            // persistent toggle for larger interactive elements
+            const persistentSelectors = [
+                'main section',
+                '.hero-content',
+                '.skills-grid',
+                '.projects-grid',
+                '.project-card',
+                '.contact-section',
+                '.skill-card',
+                '.view-projects-btn'
+            ];
+            persistentSelectors.forEach(sel => {
+                document.querySelectorAll(sel).forEach(el => {
+                    el.addEventListener('click', function(e){
+                        // don't toggle when clicking interactive controls inside
+                        const tag = (e.target && e.target.tagName) || '';
+                        if(tag === 'A' || tag === 'INPUT' || tag === 'BUTTON' || tag === 'TEXTAREA' || e.target.closest('a')) return;
+                        el.classList.toggle('clicked');
+                    });
+                });
+            });
+
+            // floating controls (theme toggle, contact fab) — short feedback
+            document.querySelectorAll('.floating-theme-toggle, .contact-fab, .rs-logo, .close-resume, .close-slider').forEach(btn => {
+                btn && btn.addEventListener('click', function(e){
+                    btn.classList.add('clicked');
+                    setTimeout(() => btn.classList.remove('clicked'), 700);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
